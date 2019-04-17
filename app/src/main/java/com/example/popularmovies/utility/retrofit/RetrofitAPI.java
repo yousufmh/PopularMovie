@@ -20,10 +20,10 @@ public interface RetrofitAPI {
     Call<ListMovie> getMovies(@Path("sort") String sort, @Query("api_key") String sortWithKey);
 
     @GET("{id}/videos")
-    Call<List<Trailer>> getVideos(@Path("id") String id, @Query("api_key") String sortWithKey);
+    Call<Trailer> getVideos(@Path("id") String id, @Query("api_key") String sortWithKey);
 
     @GET("{id}/reviews")
-    Call<List<Review>> getReviews(@Path("id") String id,@Query("api_key") String sortWithKey);
+    Call<Review> getReviews(@Path("id") String id,@Query("api_key") String sortWithKey);
 
 
 }

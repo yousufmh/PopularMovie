@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -70,6 +71,7 @@ public class Details extends AppCompatActivity {
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(pic);
 
+        Log.d("DETELS", "id : "+movie.getID());
         isFav();
 
         fav.setOnClickListener(new View.OnClickListener() {

@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="tab">#CA92E9EF</color>
+    <color name="trailer_color">#D0ECC6</color>
+    <color name="review_color">#E5E2B9</color>
 </resources>

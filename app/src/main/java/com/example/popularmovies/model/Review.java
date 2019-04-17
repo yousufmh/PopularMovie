@@ -6,13 +6,13 @@ public class Review {
 
     private String author;
     private String content;
-    private ArrayList<Review> result;
+    private ArrayList<Review> results;
 
 
     public Review() {
         this.author = "";
         this.content = "";
-        this.result = new ArrayList<>();
+        this.results = new ArrayList<>();
     }
 
     public String getAuthor() {
@@ -32,10 +32,10 @@ public class Review {
     }
 
     public ArrayList<Review> getResult() {
-        return result;
+        return results;
     }
 
     public void setResult(ArrayList<Review> result) {
-        this.result = result;
+        this.results = result;
     }
 }

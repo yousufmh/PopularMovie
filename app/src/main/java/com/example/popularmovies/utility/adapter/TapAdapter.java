@@ -1,5 +1,6 @@
 package com.example.popularmovies.utility.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -23,6 +24,18 @@ public class TapAdapter extends FragmentPagerAdapter {
             return new TrailerFragment();
         }
 
+
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+
+        if(position ==0){
+            return "Reviews";
+        }else{
+            return "Trailers";
+        }
 
     }
 

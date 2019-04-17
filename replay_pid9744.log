@@ -72,7 +72,7 @@ instanceKlass org/gradle/api/reporting/internal/DefaultReportContainer$1
 instanceKlass org/gradle/api/tasks/testing/JUnitXmlReport
 instanceKlass org/gradle/api/internal/tasks/testing/logging/DefaultTestLogging
 instanceKlass org/gradle/api/internal/tasks/testing/logging/DefaultTestLoggingContainer
-instanceKlass org/gradle/api/internal/tasks/testing/junit/result/TestOutputStore
+instanceKlass org/gradle/api/internal/tasks/testing/junit/results/TestOutputStore
 instanceKlass org/gradle/api/tasks/testing/logging/TestLoggingContainer
 instanceKlass org/gradle/api/tasks/testing/logging/TestLogging
 instanceKlass org/gradle/api/tasks/testing/TestTaskReports
@@ -82,7 +82,7 @@ instanceKlass org/gradle/api/internal/tasks/testing/TestFramework
 instanceKlass org/gradle/api/internal/tasks/testing/TestExecuter
 instanceKlass org/gradle/api/internal/tasks/testing/TestExecutionSpec
 instanceKlass org/gradle/api/internal/tasks/testing/report/TestReporter
-instanceKlass org/gradle/api/internal/tasks/testing/junit/result/TestResultsProvider
+instanceKlass org/gradle/api/internal/tasks/testing/junit/results/TestResultsProvider
 instanceKlass org/gradle/api/internal/tasks/testing/TestResultProcessor
 instanceKlass org/gradle/api/tasks/testing/TestOutputListener
 instanceKlass org/gradle/api/tasks/testing/TestListener

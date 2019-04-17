@@ -4,37 +4,37 @@ import java.util.ArrayList;
 
 public class Trailer {
 
-    private String id;
-    private String title;
-    private ArrayList<Trailer> result;
+    private String key;
+    private String name;
+    private ArrayList<Trailer> results;
 
     public Trailer() {
-        this.id = "";
-        this.title = "";
-        this.result = new ArrayList<>();
+        this.key = "";
+        this.name = "";
+        this.results = new ArrayList<>();
     }
 
     public String getId() {
-        return id;
+        return key;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.key = id;
     }
 
     public String getTitle() {
-        return title;
+        return name;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.name = title;
     }
 
-    public ArrayList<Trailer> getResult() {
-        return result;
+    public ArrayList<Trailer> getResults() {
+        return results;
     }
 
-    public void setResult(ArrayList<Trailer> result) {
-        this.result = result;
+    public void setResults(ArrayList<Trailer> results) {
+        this.results = results;
     }
 }

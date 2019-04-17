@@ -75,16 +75,16 @@ public class RetrofitConnection {
     }
 
     public void getReviews(String id, String API_KEY, final GetReviewCallBack callBack){
-        api.getReviews(id, API_KEY).enqueue(new Callback<List<Review>>() {
+        api.getReviews(id, API_KEY).enqueue(new Callback<Review>() {
             @Override
-            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
-                if(response.isSuccessful())
-                callBack.getReview((ArrayList<Review>)response.body(),true);
-                else{
+            public void onResponse(Call<Review> call, Response<Review> response) {
+                if(response.isSuccessful()) {
+                    callBack.getReview((Review) response.body(), true);
+                }else{
                     try {
                         String error = response.errorBody() != null ? response.errorBody().string() : null;
                         Log.d(TAG, "!response.isSuccessful(): " + error);
-                        callBack.getReview(new ArrayList<Review>(), false);
+                        callBack.getReview(new Review(), false);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -92,8 +92,8 @@ public class RetrofitConnection {
             }
 
             @Override
-            public void onFailure(Call<List<Review>> call, Throwable t) {
-                callBack.getReview(new ArrayList<Review>(),false);
+            public void onFailure(Call<Review> call, Throwable t) {
+                callBack.getReview(new Review(),false);
 
                 Log.e(TAG, "onFailure: "+ t.getCause(),t );
             }
@@ -103,16 +103,16 @@ public class RetrofitConnection {
 
 
     public void getTrailer(String id, String API_KEY, final GetTrailerCallBack callBack){
-        api.getVideos(id, API_KEY).enqueue(new Callback<List<Trailer>>() {
+        api.getVideos(id, API_KEY).enqueue(new Callback<Trailer>() {
             @Override
-            public void onResponse(Call<List<Trailer>> call, Response<List<Trailer>> response) {
+            public void onResponse(Call<Trailer> call, Response<Trailer> response) {
                 if(response.isSuccessful())
-                    callBack.getTrailer((ArrayList<Trailer>)response.body(),true);
+                    callBack.getTrailer((Trailer)response.body(),true);
                 else{
                     try {
                         String error = response.errorBody() != null ? response.errorBody().string() : null;
                         Log.d(TAG, "!response.isSuccessful(): " + error);
-                        callBack.getTrailer(new ArrayList<Trailer>(), false);
+                        callBack.getTrailer(new Trailer(), false);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -120,8 +120,8 @@ public class RetrofitConnection {
             }
 
             @Override
-            public void onFailure(Call<List<Trailer>> call, Throwable t) {
-                callBack.getTrailer(new ArrayList<Trailer>(),false);
+            public void onFailure(Call<Trailer> call, Throwable t) {
+                callBack.getTrailer(new Trailer(),false);
 
                 Log.e(TAG, "onFailure: "+ t.getCause(),t );
             }
@@ -135,11 +135,11 @@ public class RetrofitConnection {
     }
 
     public interface GetReviewCallBack{
-        void getReview(ArrayList<Review> reviews, boolean successful);
+        void getReview(Review reviews, boolean successful);
     }
 
     public interface GetTrailerCallBack{
-        void getTrailer(ArrayList<Trailer> trailers, boolean successful);
+        void getTrailer(Trailer trailers, boolean successful);
     }
 
 }

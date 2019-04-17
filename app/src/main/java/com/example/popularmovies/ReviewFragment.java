@@ -3,7 +3,6 @@ package com.example.popularmovies;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.example.popularmovies.model.Review;
 import com.example.popularmovies.model.Singalton;
-import com.example.popularmovies.model.Trailer;
 import com.example.popularmovies.utility.adapter.RandTAdapter;
 import com.example.popularmovies.utility.retrofit.RetrofitConnection;
 
@@ -32,29 +30,29 @@ public class ReviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Singalton data = Singalton.getInstance(getActivity());
-        data.setReview(true);
+        View root = inflater.inflate(R.layout.fragment_review, container, false);
+        Singalton data = Singalton.getInstance(getContext());
 
-        RecyclerView rv = container.findViewById(R.id.rv_review);
+        RecyclerView rv = root.findViewById(R.id.rv_review);
         final ArrayList<Review> reviews = new ArrayList<>();
-        final RandTAdapter adapter = new RandTAdapter(getContext(),reviews);
+        final RandTAdapter adapter = new RandTAdapter(true,getContext(),reviews);
 
-        RecyclerView.LayoutManager layout = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext());
         rv.setLayoutManager(layout);
         rv.setAdapter(adapter);
         RetrofitConnection connection = new RetrofitConnection(rv);
         connection.getReviews(""+data.getMovie().getID(), getResources().getString(R.string.API_KEY), new RetrofitConnection.GetReviewCallBack() {
             @Override
-            public void getReview(ArrayList<Review> ParReviews, boolean successful) {
+            public void getReview(Review ParReviews, boolean successful) {
                 if(successful){
                     reviews.clear();
-                    reviews.addAll(ParReviews);
+                    reviews.addAll(ParReviews.getResult());
                     adapter.notifyDataSetChanged();
                 }
             }
         });
 
-        return inflater.inflate(R.layout.fragment_review, container, false);
+        return root;
     }
 
 }
