@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="movie_name">Movie Name</string>
+
+    <string name="title">title</string>
+    <string name="overview">overview</string>
+    <string name="userRating">userRating</string>
+    <string name="releaseDate">releaseDate</string>
+    <string name="API_KEY">f7d90596c83ab32555f31c21367e30d7</string>
+    <string name="error_internet">No Internet Connection or Server Error</string>
+    <string name="retry">Retry</string>
+    <string name="fav">Favorite</string>
+    <string name="empty"></string>
+    <string name="review">Reviews</string>
+    <string name="trailer">Trailers</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

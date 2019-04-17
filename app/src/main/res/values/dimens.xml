@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="thumpnail">200dp</dimen>
+    <dimen name="detial_pic">270dp</dimen>
+    <dimen name="fav">50dp</dimen>
+</resources>
