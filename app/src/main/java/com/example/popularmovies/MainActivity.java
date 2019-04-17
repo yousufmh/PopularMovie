@@ -2,12 +2,14 @@ package com.example.popularmovies;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,19 +26,27 @@ public class MainActivity extends AppCompatActivity {
     //Global Variable
     private RecyclerView rv;
     private MovieAdapter adapter;
+    private RecyclerView.LayoutManager layout;
     private ArrayList<Movie> movies;
     private String sortURL;
     private RetrofitConnection connect;
     private final String ACTIVITY_TAG = "MAIN";
+    private final String LAYOUT_POSTION = "POSITION";
+    Parcelable savedLayout = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         movies = new ArrayList<>();
+        int culomns = columnsNumber();
+        layout = new GridLayoutManager(this,culomns);
         if(savedInstanceState!=null){
             if(savedInstanceState.containsKey(ACTIVITY_TAG)){
                 sortURL = savedInstanceState.getString(ACTIVITY_TAG);
+            }
+            if(savedInstanceState.containsKey(LAYOUT_POSTION)){
+                savedLayout = savedInstanceState.getParcelable(LAYOUT_POSTION);
             }
         }else{
             sortURL = "popular";
@@ -44,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         rv = findViewById(R.id.movie_rv);
         adapter = new MovieAdapter(getApplicationContext(), movies);
-        RecyclerView.LayoutManager layout = new GridLayoutManager(this,2);
+
+
         rv.setLayoutManager(layout);
         rv.setAdapter(adapter);
         connect = new RetrofitConnection(rv);
@@ -54,8 +65,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(!sortURL.equals("Fav"))
-        callRetrofit();
+        if(!sortURL.equals("Fav")) {
+            callRetrofit();
+
+        }
         else
             callFav();
     }
@@ -65,7 +78,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        outState.putParcelable(LAYOUT_POSTION, rv.getLayoutManager().onSaveInstanceState());
         outState.putString(ACTIVITY_TAG,sortURL);
+    }
+
+    private int columnsNumber(){
+        DisplayMetrics display = getResources().getDisplayMetrics();
+        int columnsCount =(int)(display.widthPixels /display.density)/200 ;
+
+        if(columnsCount<2){
+            columnsCount = 2;
+        }
+
+        return columnsCount;
+
+
     }
 
     private void callRetrofit() {
@@ -79,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
                             movies.clear();
                             movies.addAll(moviesPara);
                             adapter.notifyDataSetChanged();
+                            if(savedLayout!=null){
+                                rv.getLayoutManager().onRestoreInstanceState(savedLayout);
+                            }
+
                         }else{
                             Snackbar.make(rv,
                                     getResources().getString(R.string.error_internet),
@@ -95,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
     }
 
     private void callFav() {
@@ -106,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
                 movies.clear();
                 movies.addAll(movieList);
                 adapter.notifyDataSetChanged();
+                if(savedLayout!=null){
+                    rv.getLayoutManager().onRestoreInstanceState(savedLayout);
+                }
             }
         });
 
@@ -125,16 +160,22 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.popular:
                 sortURL = "popular";
+                rv.getLayoutManager().scrollToPosition(0);
+                savedLayout = null;
                 callRetrofit();
                 return true;
 
             case R.id.rate:
                 sortURL = "top_rated";
+                rv.getLayoutManager().scrollToPosition(0);
+                savedLayout = null;
                 callRetrofit();
                 return true;
 
             case R.id.fav:
                 sortURL = "Fav";
+                savedLayout = null;
+                rv.getLayoutManager().scrollToPosition(0);
                 callFav();
                 return true;
 
